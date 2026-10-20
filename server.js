@@ -3,6 +3,7 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 
 app.use(express.json());
+app.get('/', (req, res) => res.sendFile(__dirname + '/PhilHelp.html'));
 app.use(express.static('.'));
 
 const limiter = rateLimit({
