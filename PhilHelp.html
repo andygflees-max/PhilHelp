@@ -432,6 +432,15 @@ async function send() {
 
     const data = await res.json();
     botDiv.innerHTML = mdToHtml(data.answer) || 'No answer received.';
+// Only show the floating box if the reply asks for more information
+const answerText = data.answer || '';
+const asksForInfo = /##\s*Quick questions|please (tell|provide|enter|share)|what is your|which (step|province|barangay)|your (province|barangay|age|status)/i.test(answerText);
+
+if (asksForInfo) {
+  showFloatBox('Please answer the questions above…');
+} else {
+  document.getElementById('floatBox').style.display = 'none';
+}
 
     const options = document.createElement('div');
     options.className = 'msg bot';
