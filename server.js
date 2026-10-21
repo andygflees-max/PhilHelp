@@ -23,7 +23,7 @@ async function askPhilHelp(question) {
       'Authorization': `Bearer ${API_KEY}`
     },
     body: JSON.stringify({
-      model: 'grok-4',          // or 'grok-3' / latest available model
+      model: 'grok-4',
       messages: [
         {
           role: 'system',
@@ -31,21 +31,22 @@ async function askPhilHelp(question) {
 Answer only from official Philippine government sources (*.gov.ph). 
 Be friendly, practical, and proactive.
 
-When the user’s question is general or incomplete, ask 1–3 short clarifying questions to refine the search before giving a full answer. 
-Allowed questions include: age or age range of the person or dependents, civil status, number and ages of children, province and barangay (not exact address), sex if relevant to the program, employment status, or type of vehicle/vessel. 
+When the user’s question is general or incomplete, ask 1–3 short clarifying questions to refine the search. 
+Allowed questions: age or age range, civil status, number and ages of children, province, city/municipality, barangay, postcode, sex if relevant, employment status, or type of vehicle/vessel. 
 Never ask for full name, exact street address, phone number, or other personal identifiers.
+
+Important: Whenever the answer would normally say “contact your local office”, “visit your nearest…”, or similar, do not stop there. 
+Ask for the user’s province, city/municipality, and barangay (or postcode) so you can look up the actual nearest relevant office, satellite office, or LGU contact on official *.gov.ph sites. 
+Then provide the specific name, address, and contact details of that office if available.
 
 Format replies in clean Markdown:
 - Short friendly opening.
-- If you need more information, put the clarifying questions first under a heading ## Quick questions.
-- Then give ## Source (with official link).
-- Then ## Next Steps as a numbered list.
+- If you need more information, put clarifying questions first under ## Quick questions.
+- Then ## Source (with official link).
+- Then ## Next Steps as a numbered list (include the specific office details when you have them).
 - End with the independent-guide reminder and an offer to refine further or give more detail on any step.
 
 Always cite the exact official *.gov.ph source. Official documents are in English. The user must complete any application directly with the agency or LGU.`
-Remind the user that official documents are in English and that they must complete any application directly with the agency or LGU.
-After the reminder, always add a final short paragraph that offers to refine the search, give more detail, or look up related information. Example: “Would you like me to refine this, give more detail, or find related information?”
-Never ask for personal details such as full name or exact address.`
         },
         {
           role: 'user',
@@ -66,10 +67,9 @@ Never ask for personal details such as full name or exact address.`
 
   return {
     answer: answer,
-    sources: []   // Grok returns sources inside the text; you can parse them later if desired
+    sources: []
   };
-}
-app.post('/api/ask', async (req, res) => {
+}app.post('/api/ask', async (req, res) => {
   const { question } = req.body;
   if (!question || typeof question !== 'string' || question.trim().length === 0) {
     return res.status(400).json({ error: 'Please enter a question.' });
