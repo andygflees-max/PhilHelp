@@ -436,16 +436,6 @@ async function send() {
     const data = await res.json();
     botDiv.innerHTML = mdToHtml(data.answer) || 'No answer received.';
 
-    const options = document.createElement('div');
-    options.className = 'msg bot';
-    options.style.marginTop = '0.5rem';
-    options.innerHTML = `
-      <div style="margin-bottom:0.6rem;font-weight:600;">Would you like more detail on any of the steps above?</div>
-      <button onclick="showSearch('Please tell me which step you would like more detail on (1, 2, 3…)', true)" style="background:#0038a8;color:white;border:none;padding:0.5rem 1rem;border-radius:6px;margin-right:0.5rem;cursor:pointer;">Yes, more detail on the steps</button>
-      <button onclick="showStart()" style="background:#f3f4f6;border:1px solid #d1d5db;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;">No</button>
-    `;
-    chat.appendChild(options);
-
     const answerText = data.answer || '';
     const asksForInfo = /##\s*Quick questions|please (tell|provide|enter|share)|what is your|which (step|province|barangay)|your (province|barangay|age|status)/i.test(answerText);
 
@@ -453,6 +443,16 @@ async function send() {
       showFloatBox('Please answer the questions above…');
     } else {
       document.getElementById('floatBox').style.display = 'none';
+
+      const options = document.createElement('div');
+      options.className = 'msg bot';
+      options.style.marginTop = '0.5rem';
+      options.innerHTML = `
+        <div style="margin-bottom:0.6rem;font-weight:600;">Would you like more detail on any of the steps above?</div>
+        <button onclick="showSearch('Please tell me which step you would like more detail on (1, 2, 3…)', true)" style="background:#0038a8;color:white;border:none;padding:0.5rem 1rem;border-radius:6px;margin-right:0.5rem;cursor:pointer;">Yes, more detail on the steps</button>
+        <button onclick="showStart()" style="background:#f3f4f6;border:1px solid #d1d5db;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;">No</button>
+      `;
+      chat.appendChild(options);
     }
 
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
@@ -465,5 +465,6 @@ async function send() {
 }
 
 setLang();
-</script></body>
+</script>
+</body>
 </html>
