@@ -89,6 +89,28 @@
     .input-area { flex-direction:column; }
     textarea, button { width:100%; }
     .scroller-wrap { max-width:100%; }
+	.thinking-anim {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.thinking-anim span {
+  width: 6px;
+  height: 6px;
+  background: #0038a8;
+  border-radius: 50%;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+.thinking-anim span:nth-child(2) { animation-delay: 0.2s; }
+.thinking-anim span:nth-child(3) { animation-delay: 0.4s; }
+.thinking-anim span:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes pulse {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
   }
 </style>
 </head>
@@ -406,7 +428,7 @@ async function send() {
 
   const botDiv = document.createElement('div');
   botDiv.className = 'msg bot';
-  botDiv.innerHTML = 'Thinking…';
+  botDiv.innerHTML = 'Thinking… <span class="thinking-anim"><span></span><span></span><span></span><span></span></span>';
   chat.appendChild(botDiv);
   chat.scrollTop = chat.scrollHeight;
   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
