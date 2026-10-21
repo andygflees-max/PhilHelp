@@ -80,6 +80,7 @@
   }
   #floatBox textarea { width:100%; min-height:70px; margin-bottom:0.6rem; resize:vertical; }
   #floatBox button { background:var(--blue); color:white; border:none; padding:0.5rem 1.4rem; border-radius:6px; cursor:pointer; font-weight:600; }
+  #floatBox button.cancel { background:#f3f4f6; color:#374151; border:1px solid #d1d5db; margin-left:0.5rem; }
 
   .thinking-anim {
     display: inline-block;
@@ -143,8 +144,8 @@
 
 <div id="floatBox">
   <textarea id="floatQ" placeholder="Type your answer or additional information…"></textarea>
-  <button onclick="submitFloat()">OK</button>
-  <button onclick="cancelFloat()" style="background:#f3f4f6;color:#374151;border:1px solid #d1d5db;margin-left:0.5rem;">Cancel</button>
+  <button onclick="submitFloat()" id="floatOk">OK</button>
+  <button class="cancel" onclick="cancelFloat()" id="floatCancel">Cancel</button>
 </div>
 
 <header>
@@ -178,114 +179,114 @@
     <table class="examples">
       <tr>
         <td>
-          <div class="group-title" style="color:#0038a8;">Social Welfare & Assistance</div>
+          <div class="group-title" data-group="0">Social Welfare & Assistance</div>
           <div class="agency-tag">DSWD • Department of Social Welfare and Development</div>
           <div class="btn-row">
-            <button class="ex g-social" onclick="fill(this)" data-en="I am a single mother with children ages 9, 7 and 2. What assistance could I be eligible for?" data-label-en="Solo parent assistance">Solo parent assistance</button>
-            <button class="ex g-social" onclick="fill(this)" data-en="What is the 4Ps program and how can a family apply?" data-label-en="4Ps program">4Ps program</button>
-            <button class="ex g-social" onclick="fill(this)" data-en="How can I apply for AICS or other emergency assistance?" data-label-en="AICS / emergency aid">AICS / emergency aid</button>
+            <button class="ex g-social" onclick="fill(this)" data-en="I am a single mother with children ages 9, 7 and 2. What assistance could I be eligible for?" data-label-en="Solo parent assistance" data-label-tl="Tulong sa solo parent" data-label-ceb="Tabang sa solo parent" data-label-hil="Bulig sa solo parent">Solo parent assistance</button>
+            <button class="ex g-social" onclick="fill(this)" data-en="What is the 4Ps program and how can a family apply?" data-label-en="4Ps program" data-label-tl="Programa ng 4Ps" data-label-ceb="Programa sa 4Ps" data-label-hil="Programa sang 4Ps">4Ps program</button>
+            <button class="ex g-social" onclick="fill(this)" data-en="How can I apply for AICS or other emergency assistance?" data-label-en="AICS / emergency aid" data-label-tl="AICS / emergency aid" data-label-ceb="AICS / emergency aid" data-label-hil="AICS / emergency aid">AICS / emergency aid</button>
           </div>
         </td>
         <td>
-          <div class="group-title" style="color:#0d9488;">Health</div>
+          <div class="group-title" data-group="1">Health</div>
           <div class="agency-tag">PhilHealth • Philippine Health Insurance Corporation</div>
           <div class="btn-row">
-            <button class="ex g-health" onclick="fill(this)" data-en="What PhilHealth benefits are available for a family with young children?" data-label-en="PhilHealth benefits">PhilHealth benefits</button>
-            <button class="ex g-health" onclick="fill(this)" data-en="How do I check or update my PhilHealth membership?" data-label-en="PhilHealth membership">PhilHealth membership</button>
-            <button class="ex g-health" onclick="fill(this)" data-en="What free or subsidized health services are available at public hospitals?" data-label-en="Public hospital services">Public hospital services</button>
+            <button class="ex g-health" onclick="fill(this)" data-en="What PhilHealth benefits are available for a family with young children?" data-label-en="PhilHealth benefits" data-label-tl="Benepisyo ng PhilHealth" data-label-ceb="Benepisyo sa PhilHealth" data-label-hil="Benepisyo sang PhilHealth">PhilHealth benefits</button>
+            <button class="ex g-health" onclick="fill(this)" data-en="How do I check or update my PhilHealth membership?" data-label-en="PhilHealth membership" data-label-tl="Membership sa PhilHealth" data-label-ceb="Membership sa PhilHealth" data-label-hil="Membership sa PhilHealth">PhilHealth membership</button>
+            <button class="ex g-health" onclick="fill(this)" data-en="What free or subsidized health services are available at public hospitals?" data-label-en="Public hospital services" data-label-tl="Serbisyo sa public hospital" data-label-ceb="Serbisyo sa public hospital" data-label-hil="Serbisyo sa public hospital">Public hospital services</button>
           </div>
         </td>
       </tr>
       <tr>
         <td>
-          <div class="group-title" style="color:#7c3aed;">Education</div>
+          <div class="group-title" data-group="2">Education</div>
           <div class="agency-tag">DepEd • Department of Education | CHED • Commission on Higher Education</div>
           <div class="btn-row">
-            <button class="ex g-edu" onclick="fill(this)" data-en="Are there scholarships or educational assistance for a high school student in a low-income family?" data-label-en="Scholarships">Scholarships</button>
-            <button class="ex g-edu" onclick="fill(this)" data-en="What free tuition programs are available for college students?" data-label-en="Free tuition">Free tuition</button>
-            <button class="ex g-edu" onclick="fill(this)" data-en="How can I apply for TES or other college financial aid?" data-label-en="TES / college aid">TES / college aid</button>
+            <button class="ex g-edu" onclick="fill(this)" data-en="Are there scholarships or educational assistance for a high school student in a low-income family?" data-label-en="Scholarships" data-label-tl="Mga scholarship" data-label-ceb="Mga scholarship" data-label-hil="Mga scholarship">Scholarships</button>
+            <button class="ex g-edu" onclick="fill(this)" data-en="What free tuition programs are available for college students?" data-label-en="Free tuition" data-label-tl="Libreng tuition" data-label-ceb="Libre nga tuition" data-label-hil="Libre nga tuition">Free tuition</button>
+            <button class="ex g-edu" onclick="fill(this)" data-en="How can I apply for TES or other college financial aid?" data-label-en="TES / college aid" data-label-tl="TES / tulong sa kolehiyo" data-label-ceb="TES / tabang sa kolehiyo" data-label-hil="TES / bulig sa kolehiyo">TES / college aid</button>
           </div>
         </td>
         <td>
-          <div class="group-title" style="color:#d97706;">Business & Trade</div>
+          <div class="group-title" data-group="3">Business & Trade</div>
           <div class="agency-tag">DTI • Department of Trade and Industry</div>
           <div class="btn-row">
-            <button class="ex g-biz" onclick="fill(this)" data-en="What permits or assistance are available for starting a small business in the Philippines?" data-label-en="Starting a business">Starting a business</button>
-            <button class="ex g-biz" onclick="fill(this)" data-en="How do I register a business name or get a DTI certificate?" data-label-en="DTI registration">DTI registration</button>
-            <button class="ex g-biz" onclick="fill(this)" data-en="What support is available for MSMEs or small entrepreneurs?" data-label-en="MSME support">MSME support</button>
+            <button class="ex g-biz" onclick="fill(this)" data-en="What permits or assistance are available for starting a small business in the Philippines?" data-label-en="Starting a business" data-label-tl="Pagsisimula ng negosyo" data-label-ceb="Pagsugod sa negosyo" data-label-hil="Pagsugod sang negosyo">Starting a business</button>
+            <button class="ex g-biz" onclick="fill(this)" data-en="How do I register a business name or get a DTI certificate?" data-label-en="DTI registration" data-label-tl="Rehistrasyon sa DTI" data-label-ceb="Rehistrasyon sa DTI" data-label-hil="Rehistrasyon sa DTI">DTI registration</button>
+            <button class="ex g-biz" onclick="fill(this)" data-en="What support is available for MSMEs or small entrepreneurs?" data-label-en="MSME support" data-label-tl="Suporta sa MSME" data-label-ceb="Suporta sa MSME" data-label-hil="Suporta sa MSME">MSME support</button>
           </div>
         </td>
       </tr>
       <tr>
         <td>
-          <div class="group-title" style="color:#be123c;">Legal & Family</div>
+          <div class="group-title" data-group="4">Legal & Family</div>
           <div class="agency-tag">RA 11861 • Solo Parents’ Welfare Act</div>
           <div class="btn-row">
-            <button class="ex g-legal" onclick="fill(this)" data-en="What legal rights and benefits does a solo parent have under Philippine law?" data-label-en="Solo parent rights">Solo parent rights</button>
-            <button class="ex g-legal" onclick="fill(this)" data-en="What are the steps and requirements for resolving a parental custody or support dispute?" data-label-en="Custody & support">Custody & support</button>
+            <button class="ex g-legal" onclick="fill(this)" data-en="What legal rights and benefits does a solo parent have under Philippine law?" data-label-en="Solo parent rights" data-label-tl="Karapatan ng solo parent" data-label-ceb="Katungod sa solo parent" data-label-hil="Katungod sang solo parent">Solo parent rights</button>
+            <button class="ex g-legal" onclick="fill(this)" data-en="What are the steps and requirements for resolving a parental custody or support dispute?" data-label-en="Custody & support" data-label-tl="Custody at support" data-label-ceb="Custody ug support" data-label-hil="Custody kag support">Custody & support</button>
           </div>
         </td>
         <td>
-          <div class="group-title" style="color:#0369a1;">Finance, Loans & Taxes</div>
+          <div class="group-title" data-group="5">Finance, Loans & Taxes</div>
           <div class="agency-tag">DOF • BIR • Pag-IBIG</div>
           <div class="btn-row">
-            <button class="ex g-finance" onclick="fill(this)" data-en="Where can I find information on government loans or financial assistance programs?" data-label-en="Loans & assistance">Loans & assistance</button>
-            <button class="ex g-finance" onclick="fill(this)" data-en="How can I check tax obligations or apply for tax clearances?" data-label-en="Taxes (BIR)">Taxes (BIR)</button>
-            <button class="ex g-finance" onclick="fill(this)" data-en="What are the requirements and process for buying property or registering a land title?" data-label-en="Property & titles">Property & titles</button>
+            <button class="ex g-finance" onclick="fill(this)" data-en="Where can I find information on government loans or financial assistance programs?" data-label-en="Loans & assistance" data-label-tl="Mga loan at tulong" data-label-ceb="Mga loan ug tabang" data-label-hil="Mga loan kag bulig">Loans & assistance</button>
+            <button class="ex g-finance" onclick="fill(this)" data-en="How can I check tax obligations or apply for tax clearances?" data-label-en="Taxes (BIR)" data-label-tl="Buwis (BIR)" data-label-ceb="Buhis (BIR)" data-label-hil="Buhis (BIR)">Taxes (BIR)</button>
+            <button class="ex g-finance" onclick="fill(this)" data-en="What are the requirements and process for buying property or registering a land title?" data-label-en="Property & titles" data-label-tl="Property at titles" data-label-ceb="Property ug titles" data-label-hil="Property kag titles">Property & titles</button>
           </div>
         </td>
       </tr>
       <tr>
         <td>
-          <div class="group-title" style="color:#4b5563;">Transportation</div>
+          <div class="group-title" data-group="6">Transportation</div>
           <div class="agency-tag">LTO • Land Transportation Office</div>
           <div class="btn-row">
-            <button class="ex g-trans" onclick="fill(this)" data-en="How do I renew a driver’s license or check vehicle registration requirements?" data-label-en="Driver’s license / LTO">Driver’s license / LTO</button>
-            <button class="ex g-trans" onclick="fill(this)" data-en="What are the requirements for motorcycle or vehicle registration?" data-label-en="Vehicle registration">Vehicle registration</button>
+            <button class="ex g-trans" onclick="fill(this)" data-en="How do I renew a driver’s license or check vehicle registration requirements?" data-label-en="Driver’s license / LTO" data-label-tl="Lisensya / LTO" data-label-ceb="Lisensya / LTO" data-label-hil="Lisensya / LTO">Driver’s license / LTO</button>
+            <button class="ex g-trans" onclick="fill(this)" data-en="What are the requirements for motorcycle or vehicle registration?" data-label-en="Vehicle registration" data-label-tl="Rehistrasyon ng sasakyan" data-label-ceb="Rehistrasyon sa sakyanan" data-label-hil="Rehistrasyon sang salakyan">Vehicle registration</button>
           </div>
         </td>
         <td>
-          <div class="group-title" style="color:#0e7490;">Maritime</div>
+          <div class="group-title" data-group="7">Maritime</div>
           <div class="agency-tag">MARINA • Maritime Industry Authority</div>
           <div class="btn-row">
-            <button class="ex g-maritime" onclick="fill(this)" data-en="Do I have to register my new boat?" data-label-en="Boat registration">Boat registration</button>
-            <button class="ex g-maritime" onclick="fill(this)" data-en="What documents are needed for seafarer certification or maritime licenses?" data-label-en="Seafarer certification">Seafarer certification</button>
+            <button class="ex g-maritime" onclick="fill(this)" data-en="Do I have to register my new boat?" data-label-en="Boat registration" data-label-tl="Rehistrasyon ng bangka" data-label-ceb="Rehistrasyon sa bangka" data-label-hil="Rehistrasyon sang bangka">Boat registration</button>
+            <button class="ex g-maritime" onclick="fill(this)" data-en="What documents are needed for seafarer certification or maritime licenses?" data-label-en="Seafarer certification" data-label-tl="Certification ng seafarer" data-label-ceb="Certification sa seafarer" data-label-hil="Certification sang seafarer">Seafarer certification</button>
           </div>
         </td>
       </tr>
       <tr>
         <td>
-          <div class="group-title" style="color:#b45309;">Labor & Employment</div>
+          <div class="group-title" data-group="8">Labor & Employment</div>
           <div class="agency-tag">DOLE • Department of Labor and Employment</div>
           <div class="btn-row">
-            <button class="ex g-labor" onclick="fill(this)" data-en="What assistance or benefits are available for unemployed workers?" data-label-en="Unemployment assistance">Unemployment assistance</button>
-            <button class="ex g-labor" onclick="fill(this)" data-en="How do I file a labor complaint or check minimum wage?" data-label-en="Labor complaints / wages">Labor complaints / wages</button>
+            <button class="ex g-labor" onclick="fill(this)" data-en="What assistance or benefits are available for unemployed workers?" data-label-en="Unemployment assistance" data-label-tl="Tulong sa walang trabaho" data-label-ceb="Tabang sa walay trabaho" data-label-hil="Bulig sa wala trabaho">Unemployment assistance</button>
+            <button class="ex g-labor" onclick="fill(this)" data-en="How do I file a labor complaint or check minimum wage?" data-label-en="Labor complaints / wages" data-label-tl="Reklamo sa labor / sahod" data-label-ceb="Reklamo sa labor / sweldo" data-label-hil="Reklamo sa labor / sweldo">Labor complaints / wages</button>
           </div>
         </td>
         <td>
-          <div class="group-title" style="color:#15803d;">Housing</div>
+          <div class="group-title" data-group="9">Housing</div>
           <div class="agency-tag">Pag-IBIG • Home Development Mutual Fund</div>
           <div class="btn-row">
-            <button class="ex g-housing" onclick="fill(this)" data-en="What housing loans or programs are available through Pag-IBIG?" data-label-en="Pag-IBIG housing">Pag-IBIG housing</button>
-            <button class="ex g-housing" onclick="fill(this)" data-en="How can I apply for low-cost housing or relocation assistance?" data-label-en="Low-cost housing">Low-cost housing</button>
+            <button class="ex g-housing" onclick="fill(this)" data-en="What housing loans or programs are available through Pag-IBIG?" data-label-en="Pag-IBIG housing" data-label-tl="Housing ng Pag-IBIG" data-label-ceb="Housing sa Pag-IBIG" data-label-hil="Housing sang Pag-IBIG">Pag-IBIG housing</button>
+            <button class="ex g-housing" onclick="fill(this)" data-en="How can I apply for low-cost housing or relocation assistance?" data-label-en="Low-cost housing" data-label-tl="Murang pabahay" data-label-ceb="Barato nga pabalay" data-label-hil="Barato nga balay">Low-cost housing</button>
           </div>
         </td>
       </tr>
       <tr>
         <td>
-          <div class="group-title" style="color:#7e22ce;">Senior Citizens</div>
+          <div class="group-title" data-group="10">Senior Citizens</div>
           <div class="agency-tag">OSCA • Office for Senior Citizens Affairs</div>
           <div class="btn-row">
-            <button class="ex g-senior" onclick="fill(this)" data-en="What benefits and discounts are available for senior citizens?" data-label-en="Senior citizen benefits">Senior citizen benefits</button>
-            <button class="ex g-senior" onclick="fill(this)" data-en="How do I apply for a senior citizen ID?" data-label-en="Senior citizen ID">Senior citizen ID</button>
+            <button class="ex g-senior" onclick="fill(this)" data-en="What benefits and discounts are available for senior citizens?" data-label-en="Senior citizen benefits" data-label-tl="Benepisyo ng senior" data-label-ceb="Benepisyo sa senior" data-label-hil="Benepisyo sang senior">Senior citizen benefits</button>
+            <button class="ex g-senior" onclick="fill(this)" data-en="How do I apply for a senior citizen ID?" data-label-en="Senior citizen ID" data-label-tl="ID ng senior citizen" data-label-ceb="ID sa senior citizen" data-label-hil="ID sang senior citizen">Senior citizen ID</button>
           </div>
         </td>
         <td>
-          <div class="group-title" style="color:#be185d;">Persons with Disability</div>
+          <div class="group-title" data-group="11">Persons with Disability</div>
           <div class="agency-tag">NCDA • National Council on Disability Affairs</div>
           <div class="btn-row">
-            <button class="ex g-pwd" onclick="fill(this)" data-en="What benefits and discounts are available for persons with disability?" data-label-en="PWD benefits">PWD benefits</button>
-            <button class="ex g-pwd" onclick="fill(this)" data-en="How do I apply for a PWD ID?" data-label-en="PWD ID">PWD ID</button>
+            <button class="ex g-pwd" onclick="fill(this)" data-en="What benefits and discounts are available for persons with disability?" data-label-en="PWD benefits" data-label-tl="Benepisyo ng PWD" data-label-ceb="Benepisyo sa PWD" data-label-hil="Benepisyo sang PWD">PWD benefits</button>
+            <button class="ex g-pwd" onclick="fill(this)" data-en="How do I apply for a PWD ID?" data-label-en="PWD ID" data-label-tl="ID ng PWD" data-label-ceb="ID sa PWD" data-label-hil="ID sang PWD">PWD ID</button>
           </div>
         </td>
       </tr>
@@ -368,7 +369,8 @@ const T = {
     yesSteps:"Yes, more detail on the steps",
     no:"No",
     stepPrompt:"Please tell me which step you would like more detail on (1, 2, 3…)",
-    answerPrompt:"Please answer the questions above…"
+    answerPrompt:"Please answer the questions above…",
+    groups:["Social Welfare & Assistance","Health","Education","Business & Trade","Legal & Family","Finance, Loans & Taxes","Transportation","Maritime","Labor & Employment","Housing","Senior Citizens","Persons with Disability"]
   },
   tl: {
     d:"<strong>Hindi opisyal na government site.</strong> Independent guide lamang. Tumutulong maghanap ng impormasyon sa opisyal na *.gov.ph. Mga dokumento ay nasa English. Laging i-verify sa ahensya o LGU.",
@@ -388,7 +390,8 @@ const T = {
     yesSteps:"Oo, mas detalyado sa mga hakbang",
     no:"Hindi",
     stepPrompt:"Sabihin kung aling hakbang ang gusto mong mas detalyado (1, 2, 3…)",
-    answerPrompt:"Sagutin ang mga tanong sa itaas…"
+    answerPrompt:"Sagutin ang mga tanong sa itaas…",
+    groups:["Kapakanang Panlipunan at Tulong","Kalusugan","Edukasyon","Negosyo at Kalakalan","Legal at Pamilya","Pananalapi, Pautang at Buwis","Transportasyon","Maritime","Paggawa at Trabaho","Pabahay","Senior Citizens","Persons with Disability"]
   },
   ceb: {
     d:"<strong>Dili opisyal nga government site.</strong> Independent guide lamang.",
@@ -408,7 +411,8 @@ const T = {
     yesSteps:"Oo, mas detalyado sa mga lakang",
     no:"Dili",
     stepPrompt:"Isulti kung unsang lakang ang gusto nimo mas detalyado (1, 2, 3…)",
-    answerPrompt:"Tubaga ang mga pangutana sa ibabaw…"
+    answerPrompt:"Tubaga ang mga pangutana sa ibabaw…",
+    groups:["Kapakanang Panlipunan ug Tabang","Panglawas","Edukasyon","Negosyo ug Kalakalan","Legal ug Pamilya","Pinansya, Pautang ug Buhis","Transportasyon","Maritime","Paggawa ug Trabaho","Pabalay","Senior Citizens","Persons with Disability"]
   },
   hil: {
     d:"<strong>Indi opisyal nga government site.</strong> Independent guide lamang.",
@@ -428,7 +432,8 @@ const T = {
     yesSteps:"Huo, mas detalyado sa mga lakang",
     no:"Indi",
     stepPrompt:"Isulti kon diin nga lakang ang gusto mo mas detalyado (1, 2, 3…)",
-    answerPrompt:"Sabta ang mga pamangkot sa ibabaw…"
+    answerPrompt:"Sabta ang mga pamangkot sa ibabaw…",
+    groups:["Kapakanang Panlipunan kag Bulig","Panglawas","Edukasyon","Negosyo kag Kalakalan","Legal kag Pamilya","Pinansya, Pautang kag Buhis","Transportasyon","Maritime","Paggawa kag Trabaho","Pabalay","Senior Citizens","Persons with Disability"]
   }
 };
 let lang = "en";
@@ -447,6 +452,9 @@ function setLang() {
     const label = btn.getAttribute("data-label-" + lang) || btn.getAttribute("data-label-en");
     if (label) btn.textContent = label;
   });
+  document.querySelectorAll('.group-title').forEach((el, i) => {
+    if (m.groups && m.groups[i]) el.textContent = m.groups[i];
+  });
 }
 
 function fill(btn) {
@@ -464,7 +472,7 @@ function showSearch(placeholder, isStepDetail) {
   document.getElementById('input-area').style.display = 'flex';
   const q = document.getElementById('q');
   q.value = '';
-  q.placeholder = placeholder || 'Ask about government programs, rights, procedures, or services...';
+  q.placeholder = placeholder || T[lang].p;
   q.dataset.stepDetail = isStepDetail ? 'true' : '';
   q.focus();
 }
@@ -497,9 +505,16 @@ function showFloatBox(placeholder) {
   const box = document.getElementById('floatBox');
   const ta = document.getElementById('floatQ');
   ta.value = '';
-  ta.placeholder = placeholder || 'Type your answer or additional information…';
+  ta.placeholder = placeholder || T[lang].floatPlaceholder;
+  document.getElementById('floatOk').textContent = T[lang].floatOk;
+  document.getElementById('floatCancel').textContent = T[lang].floatCancel;
   box.style.display = 'block';
   ta.focus();
+}
+
+function cancelFloat() {
+  document.getElementById('floatBox').style.display = 'none';
+  showStart();
 }
 
 function submitFloat() {
@@ -571,10 +586,10 @@ async function send() {
       options.className = 'msg bot';
       options.style.marginTop = '0.5rem';
       options.innerHTML = `
-  <div style="margin-bottom:0.6rem;font-weight:600;">${T[lang].moreDetail}</div>
-  <button onclick="showSearch('${T[lang].stepPrompt}', true)" style="background:#0038a8;color:white;border:none;padding:0.5rem 1rem;border-radius:6px;margin-right:0.5rem;cursor:pointer;">${T[lang].yesSteps}</button>
-  <button onclick="showStart()" style="background:#f3f4f6;border:1px solid #d1d5db;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;">${T[lang].no}</button>
-`;
+        <div style="margin-bottom:0.6rem;font-weight:600;">${T[lang].moreDetail}</div>
+        <button onclick="showSearch('${T[lang].stepPrompt}', true)" style="background:#0038a8;color:white;border:none;padding:0.5rem 1rem;border-radius:6px;margin-right:0.5rem;cursor:pointer;">${T[lang].yesSteps}</button>
+        <button onclick="showStart()" style="background:#f3f4f6;border:1px solid #d1d5db;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;">${T[lang].no}</button>
+      `;
       chat.appendChild(options);
     }
 
