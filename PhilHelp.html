@@ -407,6 +407,12 @@ async function send() {
   const botDiv = document.createElement('div');
   botDiv.className = 'msg bot';
   botDiv.innerHTML = 'Thinking…';
+const botDiv = document.createElement('div');
+  botDiv.className = 'msg bot';
+  botDiv.innerHTML = 'Thinking…';
+  chat.appendChild(botDiv);
+  chat.scrollTop = chat.scrollHeight;
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   chat.appendChild(botDiv);
   chat.scrollTop = chat.scrollHeight;
 

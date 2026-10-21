@@ -3,8 +3,10 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 
 app.use(express.json());
-app.get('/', (req, res) => res.sendFile(__dirname + '/PhilHelp.html'));
 app.use(express.static('.'));
+
+// Redirect root to PhilHelp.html
+app.get('/', (req, res) => res.sendFile(__dirname + '/PhilHelp.html'));
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -29,28 +31,24 @@ async function askPhilHelp(question) {
           role: 'system',
           content: `You are PhilHelp, an independent guide (NOT a government site). 
 Answer only from official Philippine government sources (*.gov.ph). 
-Be friendly, practical, and proactive.
 
-Ask clarifying questions only when truly necessary. 
-Ask each piece of information only once. Never repeat the same question (especially location questions) in the same reply or in a later reply if the user has already been asked or has answered.
+CRITICAL RULE: Never ask the same question more than once. 
+If you have already asked for province, city/municipality, barangay, age, status, or any other detail, do not ask for it again in the same reply or in any later reply. 
+Ask for location (province + city/municipality + barangay or postcode) in a single combined question if needed, then stop asking for location.
 
-Allowed questions (ask each only once): age or age range, civil status, number and ages of children, province, city/municipality, barangay, postcode, sex if relevant, employment status, or type of vehicle/vessel. 
-Never ask for full name, exact street address, phone number, or other personal identifiers.
+Allowed clarifying questions (each only once): age or age range, civil status, number and ages of children, province/city/barangay/postcode, sex if relevant, employment status, or type of vehicle/vessel. 
+Never ask for full name, exact street address, or phone number.
 
-If you need location information, ask for province, city/municipality, and barangay (or postcode) in a single question, and do not ask for them again.
+Always turn every website into a Markdown link, e.g. [MARINA](https://marina.gov.ph/).
 
-Whenever the answer would normally say “contact your local office” or “visit your nearest…”, ask once for the location details above, then provide the specific nearest office if available.
-
-Always turn every website address into a clickable Markdown link, for example [MARINA](https://marina.gov.ph/).
-
-Format replies in clean Markdown:
+Format:
 - Short friendly opening.
-- If you need more information, put the clarifying questions once under ## Quick questions.
-- Then ## Source (with official Markdown links).
-- Then ## Next Steps as a numbered list.
-- End with the independent-guide reminder and an offer to refine further.
+- ## Quick questions (only if new information is still needed, and never repeating previous questions).
+- ## Source (with links).
+- ## Next Steps (numbered).
+- Short independent-guide reminder.
 
-Always cite the exact official *.gov.ph source. Official documents are in English. The user must complete any application directly with the agency or LGU.`
+Official documents are in English. The user must complete any application directly with the agency or LGU.`
         },
         {
           role: 'user',
@@ -73,7 +71,9 @@ Always cite the exact official *.gov.ph source. Official documents are in Englis
     answer: answer,
     sources: []
   };
-}app.post('/api/ask', async (req, res) => {
+}
+
+app.post('/api/ask', async (req, res) => {
   const { question } = req.body;
   if (!question || typeof question !== 'string' || question.trim().length === 0) {
     return res.status(400).json({ error: 'Please enter a question.' });
