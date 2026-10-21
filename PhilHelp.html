@@ -350,10 +350,86 @@ function selectAgency(name) {
 }
 
 const T = {
-  en: {d:"<strong>Not an official government site.</strong> Independent guide only. Helps you find information on official *.gov.ph websites. Documents are in English. Always verify with the agency or LGU.", t:"Welcome to PhilHelp", x:"An independent tool to help you find official Philippine government programs, services, rights, and procedures. Answers cite *.gov.ph sources and suggest next steps.", e:"These are just some of the websites that we search for you. Please either select one, or select a topic below, or explain what help you need in the search box below and we will do the hard work.", o:"Ask my own question", a:"Ask", p:"Ask about government programs, rights, procedures, or services...", pho:"How can we help?", n:"<strong>Important:</strong> PhilHelp is not affiliated with the Philippine government. It does not process applications, issue IDs, or accept payments. Use it only to locate the correct official resource, then complete any transaction directly with the agency or LGU."},
-  tl: {d:"<strong>Hindi opisyal na government site.</strong> Independent guide lamang.", t:"Maligayang pagdating sa PhilHelp", x:"Isang independent tool para tulungan kang mahanap ang opisyal na mga programa.", e:"Ilan lamang ito sa mga website na hinahanap namin para sa iyo.", o:"Magtanong ng sarili ko", a:"Tanungin", p:"Magtanong tungkol sa mga programa...", pho:"Paano kami makakatulong?", n:"<strong>Mahalaga:</strong> Ang PhilHelp ay hindi affiliated sa gobyerno."},
-  ceb: {d:"<strong>Dili opisyal nga government site.</strong> Independent guide lamang.", t:"Maayong pag-abot sa PhilHelp", x:"Usa ka independent tool aron tabangan ka pagpangita sa opisyal nga mga programa.", e:"Pipila lang kini sa mga website nga among gipangita para nimo.", o:"Pangutana sa akong kaugalingon", a:"Pangutana", p:"Pangutana bahin sa mga programa...", pho:"Unsaon namo pagtabang?", n:"<strong>Importante:</strong> Ang PhilHelp dili affiliated sa gobyerno."},
-  hil: {d:"<strong>Indi opisyal nga government site.</strong> Independent guide lamang.", t:"Maayong pag-abot sa PhilHelp", x:"Isa ka independent tool agud buligan ka magpangita sang opisyal nga mga programa.", e:"Pipila lang ini sa mga website nga ginapangita namon para sa imo.", o:"Pamangkot sang akon kaugalingon", a:"Pamangkot", p:"Pamangkot parte sa mga programa...", pho:"Paano kami makabulig?", n:"<strong>Importante:</strong> Ang PhilHelp indi affiliated sa gobyerno."}
+  en: {
+    d:"<strong>Not an official government site.</strong> Independent guide only. Helps you find information on official *.gov.ph websites. Documents are in English. Always verify with the agency or LGU.",
+    t:"Welcome to PhilHelp",
+    x:"An independent tool to help you find official Philippine government programs, services, rights, and procedures. Answers cite *.gov.ph sources and suggest next steps.",
+    e:"These are just some of the websites that we search for you. Please either select one, or select a topic below, or explain what help you need in the search box below and we will do the hard work.",
+    o:"Ask my own question",
+    a:"Ask",
+    p:"Ask about government programs, rights, procedures, or services...",
+    pho:"How can we help?",
+    n:"<strong>Important:</strong> PhilHelp is not affiliated with the Philippine government. It does not process applications, issue IDs, or accept payments. Use it only to locate the correct official resource, then complete any transaction directly with the agency or LGU.",
+    thinking:"Thinking…",
+    floatPlaceholder:"Type your answer or additional information…",
+    floatOk:"OK",
+    floatCancel:"Cancel",
+    moreDetail:"Would you like more detail on any of the steps above?",
+    yesSteps:"Yes, more detail on the steps",
+    no:"No",
+    stepPrompt:"Please tell me which step you would like more detail on (1, 2, 3…)",
+    answerPrompt:"Please answer the questions above…"
+  },
+  tl: {
+    d:"<strong>Hindi opisyal na government site.</strong> Independent guide lamang. Tumutulong maghanap ng impormasyon sa opisyal na *.gov.ph. Mga dokumento ay nasa English. Laging i-verify sa ahensya o LGU.",
+    t:"Maligayang pagdating sa PhilHelp",
+    x:"Isang independent tool para tulungan kang mahanap ang opisyal na mga programa, serbisyo, karapatan, at proseso ng gobyerno.",
+    e:"Ilan lamang ito sa mga website na hinahanap namin para sa iyo. Pumili ng isa, o pumili ng topic sa ibaba, o ipaliwanag kung anong tulong ang kailangan mo.",
+    o:"Magtanong ng sarili ko",
+    a:"Tanungin",
+    p:"Magtanong tungkol sa mga programa o serbisyo...",
+    pho:"Paano kami makakatulong?",
+    n:"<strong>Mahalaga:</strong> Ang PhilHelp ay hindi affiliated sa gobyerno ng Pilipinas.",
+    thinking:"Iniisip…",
+    floatPlaceholder:"I-type ang iyong sagot o karagdagang impormasyon…",
+    floatOk:"OK",
+    floatCancel:"Kanselahin",
+    moreDetail:"Gusto mo ba ng mas detalyadong impormasyon sa mga hakbang sa itaas?",
+    yesSteps:"Oo, mas detalyado sa mga hakbang",
+    no:"Hindi",
+    stepPrompt:"Sabihin kung aling hakbang ang gusto mong mas detalyado (1, 2, 3…)",
+    answerPrompt:"Sagutin ang mga tanong sa itaas…"
+  },
+  ceb: {
+    d:"<strong>Dili opisyal nga government site.</strong> Independent guide lamang.",
+    t:"Maayong pag-abot sa PhilHelp",
+    x:"Usa ka independent tool aron tabangan ka pagpangita sa opisyal nga mga programa.",
+    e:"Pipila lang kini sa mga website nga among gipangita para nimo.",
+    o:"Pangutana sa akong kaugalingon",
+    a:"Pangutana",
+    p:"Pangutana bahin sa mga programa...",
+    pho:"Unsaon namo pagtabang?",
+    n:"<strong>Importante:</strong> Ang PhilHelp dili affiliated sa gobyerno.",
+    thinking:"Naghunahuna…",
+    floatPlaceholder:"I-type ang imong tubag o dugang impormasyon…",
+    floatOk:"OK",
+    floatCancel:"Kansela",
+    moreDetail:"Gusto ba nimo og mas detalyado nga impormasyon sa mga lakang sa ibabaw?",
+    yesSteps:"Oo, mas detalyado sa mga lakang",
+    no:"Dili",
+    stepPrompt:"Isulti kung unsang lakang ang gusto nimo mas detalyado (1, 2, 3…)",
+    answerPrompt:"Tubaga ang mga pangutana sa ibabaw…"
+  },
+  hil: {
+    d:"<strong>Indi opisyal nga government site.</strong> Independent guide lamang.",
+    t:"Maayong pag-abot sa PhilHelp",
+    x:"Isa ka independent tool agud buligan ka magpangita sang opisyal nga mga programa.",
+    e:"Pipila lang ini sa mga website nga ginapangita namon para sa imo.",
+    o:"Pamangkot sang akon kaugalingon",
+    a:"Pamangkot",
+    p:"Pamangkot parte sa mga programa...",
+    pho:"Paano kami makabulig?",
+    n:"<strong>Importante:</strong> Ang PhilHelp indi affiliated sa gobyerno.",
+    thinking:"Nagahunahuna…",
+    floatPlaceholder:"I-type ang imo sabat o dugang impormasyon…",
+    floatOk:"OK",
+    floatCancel:"Kansela",
+    moreDetail:"Gusto mo bala sang mas detalyado nga impormasyon sa mga lakang sa ibabaw?",
+    yesSteps:"Huo, mas detalyado sa mga lakang",
+    no:"Indi",
+    stepPrompt:"Isulti kon diin nga lakang ang gusto mo mas detalyado (1, 2, 3…)",
+    answerPrompt:"Sabta ang mga pamangkot sa ibabaw…"
+  }
 };
 let lang = "en";
 function setLang() {
@@ -450,7 +526,7 @@ async function send() {
 
   const botDiv = document.createElement('div');
   botDiv.className = 'msg bot';
-  botDiv.innerHTML = 'Thinking… <span class="thinking-anim"><span class="ring"></span><span class="ring"></span><span class="ring"></span></span>';
+  botDiv.innerHTML = T[lang].thinking + ' <span class="thinking-anim"><span class="ring"></span><span class="ring"></span><span class="ring"></span></span>';
   chat.appendChild(botDiv);
   chat.scrollTop = chat.scrollHeight;
   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
@@ -487,7 +563,7 @@ async function send() {
     const asksForInfo = /##\s*Quick questions|please (tell|provide|enter|share)|what is your|which (step|province|barangay)|your (province|barangay|age|status)/i.test(answerText);
 
     if (asksForInfo) {
-      showFloatBox('Please answer the questions above…');
+      showFloatBox(T[lang].answerPrompt);
     } else {
       document.getElementById('floatBox').style.display = 'none';
 
@@ -495,10 +571,10 @@ async function send() {
       options.className = 'msg bot';
       options.style.marginTop = '0.5rem';
       options.innerHTML = `
-        <div style="margin-bottom:0.6rem;font-weight:600;">Would you like more detail on any of the steps above?</div>
-        <button onclick="showSearch('Please tell me which step you would like more detail on (1, 2, 3…)', true)" style="background:#0038a8;color:white;border:none;padding:0.5rem 1rem;border-radius:6px;margin-right:0.5rem;cursor:pointer;">Yes, more detail on the steps</button>
-        <button onclick="showStart()" style="background:#f3f4f6;border:1px solid #d1d5db;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;">No</button>
-      `;
+  <div style="margin-bottom:0.6rem;font-weight:600;">${T[lang].moreDetail}</div>
+  <button onclick="showSearch('${T[lang].stepPrompt}', true)" style="background:#0038a8;color:white;border:none;padding:0.5rem 1rem;border-radius:6px;margin-right:0.5rem;cursor:pointer;">${T[lang].yesSteps}</button>
+  <button onclick="showStart()" style="background:#f3f4f6;border:1px solid #d1d5db;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;">${T[lang].no}</button>
+`;
       chat.appendChild(options);
     }
 
