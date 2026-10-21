@@ -307,9 +307,9 @@ function selectAgency(name) {
 
 const T = {
   en: {d:"<strong>Not an official government site.</strong> Independent guide only. Helps you find information on official *.gov.ph websites. Documents are in English. Always verify with the agency or LGU.", t:"Welcome to PhilHelp", x:"An independent tool to help you find official Philippine government programs, services, rights, and procedures. Answers cite *.gov.ph sources and suggest next steps.", e:"These are just some of the websites that we search for you. Please either select one, or select a topic below, or explain what help you need in the search box below and we will do the hard work.", o:"Ask my own question", a:"Ask", p:"Ask about government programs, rights, procedures, or services...", pho:"How can we help?", n:"<strong>Important:</strong> PhilHelp is not affiliated with the Philippine government. It does not process applications, issue IDs, or accept payments. Use it only to locate the correct official resource, then complete any transaction directly with the agency or LGU."},
-  tl: {d:"<strong>Hindi opisyal na government site.</strong> Independent guide lamang. Tumutulong maghanap ng impormasyon sa opisyal na *.gov.ph. Mga dokumento ay nasa English. Laging i-verify sa ahensya o LGU.", t:"Maligayang pagdating sa PhilHelp", x:"Isang independent tool para tulungan kang mahanap ang opisyal na mga programa, serbisyo, karapatan, at proseso ng gobyerno.", e:"Ilan lamang ito sa mga website na hinahanap namin para sa iyo. Pumili ng isa, o pumili ng topic sa ibaba, o ipaliwanag kung anong tulong ang kailangan mo sa search box at gagawin namin ang hard work.", o:"Magtanong ng sarili ko", a:"Tanungin", p:"Magtanong tungkol sa mga programa o serbisyo...", pho:"Paano kami makakatulong?", n:"<strong>Mahalaga:</strong> Ang PhilHelp ay hindi affiliated sa gobyerno ng Pilipinas."},
-  ceb: {d:"<strong>Dili opisyal nga government site.</strong> Independent guide lamang.", t:"Maayong pag-abot sa PhilHelp", x:"Usa ka independent tool aron tabangan ka pagpangita sa opisyal nga mga programa.", e:"Pipila lang kini sa mga website nga among gipangita para nimo. Pilia ang usa, o pilia ang topic sa ubos, o isulti kung unsa ang tabang nga imong gikinahanglan.", o:"Pangutana sa akong kaugalingon", a:"Pangutana", p:"Pangutana bahin sa mga programa...", pho:"Unsaon namo pagtabang?", n:"<strong>Importante:</strong> Ang PhilHelp dili affiliated sa gobyerno."},
-  hil: {d:"<strong>Indi opisyal nga government site.</strong> Independent guide lamang.", t:"Maayong pag-abot sa PhilHelp", x:"Isa ka independent tool agud buligan ka magpangita sang opisyal nga mga programa.", e:"Pipila lang ini sa mga website nga ginapangita namon para sa imo. Pili ang isa, ukon pili ang topic sa idalom, ukon isaysay kon ano nga bulig ang imo kinahanglan.", o:"Pamangkot sang akon kaugalingon", a:"Pamangkot", p:"Pamangkot parte sa mga programa...", pho:"Paano kami makabulig?", n:"<strong>Importante:</strong> Ang PhilHelp indi affiliated sa gobyerno."}
+  tl: {d:"<strong>Hindi opisyal na government site.</strong> Independent guide lamang.", t:"Maligayang pagdating sa PhilHelp", x:"Isang independent tool para tulungan kang mahanap ang opisyal na mga programa.", e:"Ilan lamang ito sa mga website na hinahanap namin para sa iyo.", o:"Magtanong ng sarili ko", a:"Tanungin", p:"Magtanong tungkol sa mga programa...", pho:"Paano kami makakatulong?", n:"<strong>Mahalaga:</strong> Ang PhilHelp ay hindi affiliated sa gobyerno."},
+  ceb: {d:"<strong>Dili opisyal nga government site.</strong> Independent guide lamang.", t:"Maayong pag-abot sa PhilHelp", x:"Usa ka independent tool aron tabangan ka pagpangita sa opisyal nga mga programa.", e:"Pipila lang kini sa mga website nga among gipangita para nimo.", o:"Pangutana sa akong kaugalingon", a:"Pangutana", p:"Pangutana bahin sa mga programa...", pho:"Unsaon namo pagtabang?", n:"<strong>Importante:</strong> Ang PhilHelp dili affiliated sa gobyerno."},
+  hil: {d:"<strong>Indi opisyal nga government site.</strong> Independent guide lamang.", t:"Maayong pag-abot sa PhilHelp", x:"Isa ka independent tool agud buligan ka magpangita sang opisyal nga mga programa.", e:"Pipila lang ini sa mga website nga ginapangita namon para sa imo.", o:"Pamangkot sang akon kaugalingon", a:"Pamangkot", p:"Pamangkot parte sa mga programa...", pho:"Paano kami makabulig?", n:"<strong>Importante:</strong> Ang PhilHelp indi affiliated sa gobyerno."}
 };
 let lang = "en";
 function setLang() {
@@ -407,22 +407,18 @@ async function send() {
   const botDiv = document.createElement('div');
   botDiv.className = 'msg bot';
   botDiv.innerHTML = 'Thinking…';
-const botDiv = document.createElement('div');
-  botDiv.className = 'msg bot';
-  botDiv.innerHTML = 'Thinking…';
   chat.appendChild(botDiv);
   chat.scrollTop = chat.scrollHeight;
   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  chat.appendChild(botDiv);
-  chat.scrollTop = chat.scrollHeight;
 
   try {
     let questionToSend = q;
+    const previous = [...document.querySelectorAll('.msg')].slice(-4).map(el => el.textContent).join('\n---\n');
+    if (previous) {
+      questionToSend = `Previous conversation:\n${previous}\n\nNew user message: ${q}`;
+    }
     if (document.getElementById('q').dataset.stepDetail === 'true') {
-      const lastBot = [...document.querySelectorAll('.msg.bot')].pop();
-      if (lastBot) {
-        questionToSend = `The user is asking for more detail on these steps from the previous answer: "${lastBot.textContent}". User request: ${q}`;
-      }
+      questionToSend += "\n(The user is asking for more detail on the numbered steps above.)";
       document.getElementById('q').dataset.stepDetail = '';
     }
 
@@ -469,6 +465,5 @@ const botDiv = document.createElement('div');
 }
 
 setLang();
-</script>
-</body>
+</script></body>
 </html>
