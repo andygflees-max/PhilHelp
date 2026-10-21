@@ -55,15 +55,10 @@
   button.own { background:#f3f4f6; border:1px solid #d1d5db; padding:0.6rem 0.9rem; border-radius:6px; cursor:pointer; }
   button.ask { background:var(--blue); color:white; border:none; padding:0.6rem 1.2rem; border-radius:6px; cursor:pointer; font-weight:600; }
   .msg { margin:0.6rem 0; padding:0.6rem 0.9rem; border-radius:8px; max-width:85%; }
-.msg.bot ol {
-  margin-left: 1.4rem;
-  padding-left: 0.4rem;
-}
-.msg.bot li {
-  margin-bottom: 0.35rem;
-}
   .user { background:var(--blue); color:white; margin-left:auto; }
   .bot { background:#f0f4ff; }
+  .msg.bot ol { margin-left: 1.4rem; padding-left: 0.4rem; }
+  .msg.bot li { margin-bottom: 0.35rem; }
   footer { text-align:center; font-size:0.75rem; color:var(--gray); margin:1rem 0; padding:0 1rem; }
   #exlabel { font-weight:600; margin:0.6rem auto 0.5rem; text-align:center; max-width:680px; font-size:1rem; line-height:1.4; }
   #portrait-msg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); color:white; z-index:9999; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem; }
@@ -284,7 +279,6 @@ function selectAgency(name) {
   q.value = "Searching the " + name + " website for: ";
   q.placeholder = "Please enter your question";
   q.focus();
-  // Place cursor at the end
   const len = q.value.length;
   q.setSelectionRange(len, len);
 }
@@ -312,6 +306,7 @@ function setLang() {
     if (label) btn.textContent = label;
   });
 }
+
 function fill(btn) {
   document.getElementById("q").value = btn.getAttribute("data-" + lang) || btn.getAttribute("data-en");
   document.getElementById("q").focus();
@@ -321,6 +316,26 @@ function own() {
   document.getElementById("q").placeholder = T[lang].pho;
   document.getElementById("q").focus();
 }
+
+function showSearch(placeholder, isStepDetail) {
+  document.getElementById('welcome').style.display = 'none';
+  document.getElementById('input-area').style.display = 'flex';
+  const q = document.getElementById('q');
+  q.value = '';
+  q.placeholder = placeholder || 'Ask about government programs, rights, procedures, or services...';
+  q.dataset.stepDetail = isStepDetail ? 'true' : '';
+  q.focus();
+}
+
+function showStart() {
+  document.getElementById('chat').innerHTML = '';
+  document.getElementById('welcome').style.display = 'block';
+  document.getElementById('input-area').style.display = 'flex';
+  const q = document.getElementById('q');
+  q.value = '';
+  q.placeholder = T[lang].p || 'Ask about government programs, rights, procedures, or services...';
+}
+
 function mdToHtml(text) {
   if (!text) return '';
   return text
@@ -334,31 +349,12 @@ function mdToHtml(text) {
     .replace(/(<li>.*<\/li>)/s, '<ol>$1</ol>')
     .replace(/\n/g, '<br>');
 }
-function showSearch(placeholder, isStepDetail) {
-  document.getElementById('welcome').style.display = 'none';
-  document.getElementById('input-area').style.display = 'flex';
-  const q = document.getElementById('q');
-  q.value = '';
-  q.placeholder = placeholder || 'Ask about government programs, rights, procedures, or services...';
-  q.dataset.stepDetail = isStepDetail ? 'true' : '';
-  q.focus();
-}
-function showStart() {
-  document.getElementById('chat').innerHTML = '';
-  document.getElementById('welcome').style.display = 'block';
-  document.getElementById('input-area').style.display = 'flex';
-  const q = document.getElementById('q');
-  q.value = '';
-  q.placeholder = T[lang].p || 'Ask about government programs, rights, procedures, or services...';
-}
 
 async function send() {
   const q = document.getElementById('q').value.trim();
   if (!q) return;
 
-  // Hide the top search prompt / examples once a result is shown
   document.getElementById('welcome').style.display = 'none';
-  document.getElementById('input-area').style.display = 'none';
 
   const chat = document.getElementById('chat');
 
@@ -376,14 +372,15 @@ async function send() {
   chat.scrollTop = chat.scrollHeight;
 
   try {
-let questionToSend = q;
-if (document.getElementById('q').dataset.stepDetail === 'true') {
-  const lastBot = [...document.querySelectorAll('.msg.bot')].pop();
-  if (lastBot) {
-    questionToSend = `The user is asking for more detail on these steps from the previous answer: "${lastBot.textContent}". User request: ${q}`;
-  }
-  document.getElementById('q').dataset.stepDetail = '';
-}
+    let questionToSend = q;
+    if (document.getElementById('q').dataset.stepDetail === 'true') {
+      const lastBot = [...document.querySelectorAll('.msg.bot')].pop();
+      if (lastBot) {
+        questionToSend = `The user is asking for more detail on these steps from the previous answer: "${lastBot.textContent}". User request: ${q}`;
+      }
+      document.getElementById('q').dataset.stepDetail = '';
+    }
+
     const res = await fetch('/api/ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -398,28 +395,33 @@ if (document.getElementById('q').dataset.stepDetail === 'true') {
     const data = await res.json();
     botDiv.innerHTML = mdToHtml(data.answer) || 'No answer received.';
 
-    // Add Yes / No options after the answer
     const options = document.createElement('div');
-options.className = 'msg bot';
-options.style.marginTop = '0.5rem';
-options.innerHTML = `
-  <div style="margin-bottom:0.6rem;font-weight:600;">Would you like more detail on any of the steps above?</div>
-  <button onclick="showSearch('Please tell me which step you would like more detail on (1, 2, 3…)', true)" 
-        style="background:#0038a8;color:white;border:none;padding:0.5rem 1rem;border-radius:6px;margin-right:0.5rem;cursor:pointer;">
-  Yes, more detail on the steps
-</button>
-  <button onclick="showStart()" 
-          style="background:#f3f4f6;border:1px solid #d1d5db;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;">
-    No
-  </button>
-`;
-chat.appendChild(options);
+    options.className = 'msg bot';
+    options.style.marginTop = '0.5rem';
+    options.innerHTML = `
+      <div style="margin-bottom:0.6rem;font-weight:600;">Would you like more detail on any of the steps above?</div>
+      <button onclick="showSearch('Please tell me which step you would like more detail on (1, 2, 3…)', true)" 
+              style="background:#0038a8;color:white;border:none;padding:0.5rem 1rem;border-radius:6px;margin-right:0.5rem;cursor:pointer;">
+        Yes, more detail on the steps
+      </button>
+      <button onclick="showStart()" 
+              style="background:#f3f4f6;border:1px solid #d1d5db;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;">
+        No
+      </button>
+    `;
+    chat.appendChild(options);
+
+    document.getElementById('input-area').style.display = 'flex';
+    document.getElementById('q').placeholder = 'Type your answer or ask a follow-up question…';
+    document.getElementById('q').focus();
 
   } catch (e) {
     botDiv.innerHTML = 'Sorry, something went wrong. Please try again.<br><small>' + (e.message || '') + '</small>';
   }
   chat.scrollTop = chat.scrollHeight;
-}setLang();
+}
+
+setLang();
 </script>
 </body>
 </html>
